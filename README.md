@@ -289,7 +289,7 @@ make
 
 以上仅是make和cmake的简单使用方法，~~具体的使用还要等王总来给我们细说~~
 
-
+All
 
 ## 参考文档
 
@@ -298,6 +298,3 @@ make
 3. [Makefile由浅入深--教程、干货](https://zhuanlan.zhihu.com/p/47390641)
 3. [GNU make官方文档](https://www.gnu.org/software/make/manual/make.html)
 3. [CMake官方文档](https://cmake.org/documentation/)
-
-
-
