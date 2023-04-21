@@ -71,7 +71,42 @@ linux下可以使用`man gcc`来查看帮助手册
 
 在`Makefile`中，你可以定义编译器的选项、编译器的指令、源文件、目标文件等内容。`Makefile`可以根据文件的修改时间判断是否需要重新编译文件，并自动执行所需的编译指令。
 
-## 0x03 引入一个简单的工程
+## 0x03 一个简单的Makefile文件
+
+```makefile
+helloworld: helloworld.c
+	gcc -o helloworld helloworld.o
+```
+
+运行`make`命令得到结果：
+
+![image-20230421084134500](https://tuchuang-e682.obs.cn-north-1.myhuaweicloud.com/image-20230421084134500.png)
+
+在这里，我们可以发现这个makefile不就是shell脚本，看起来和简单的shell脚本没有什么区别，确实，简单的makefile文件确实可以当成shell脚本执行，但是我们还是看不懂大神写的makefile文件，下面下面我们深入分析一下Makefile文件的其他写法
+
+## 0x04 makefile的结构说明
+
+Makefile里主要包含了五个东西：变量定义、显式规则、隐晦规则、文件指示和注释。
+
+1、变量的定义。在Makefile中我们要定义一系列的变量，变量一般都是字符串，这个有点像C语言中的宏，当Makefile被执行时，其中的变量都会被扩展到相应的引用位置上。
+
+2、显式规则。显式规则说明了，如何生成一个或多的的目标文件。这是由Makefile的书写者明显指出，要生成的文件，文件的依赖文件，生成的命令。 刚才写的疑似shell脚本的Makefile全部都是显示规则。
+
+3、隐晦规则。由于我们的make有自动推导的功能，所以隐晦的规则可以让我们比较粗糙地简略地书写Makefile，这是由make所支持的。
+
+4、文件指示。其包括了三个部分，一个是在一个Makefile中引用另一个Makefile，就像C语言中的include一样。
+
+5、注释。Makefile中只有行注释，和UNIX的Shell脚本一样，其注释是用“#”字符
+
+当我们重新编译一个工程的时候，make决定哪个文件需要重新编译，哪个文件不需要重新编译，Makefile文件来告诉make该如何运行这些杂乱无章的命令。当Make重新编译这个编辑器时，所有改动的C语言源文件必须重新编译。如果一个头文件改变，每一个包含该头文件的C语言源文件必须重新编译，这样才能保证生成的编辑器是所有源文件更新后的编辑器。每一个C语言源文件编译后产生一个对应的OBJ文件，如果一个源文件重新编译，所有的OBJ文件无论是刚刚编译得到的或原来编译得到的必须从新连接，形成一个新的可执行文件。
+
+具体规则请查看[gnu make 官方文档](https://www.gnu.org/software/make/manual/make.html)
+
+## 0x05 makefile例子
+
+使用makefile编译如下工程，工程结构如下图：
+
+![image-20230421092454282](https://tuchuang-e682.obs.cn-north-1.myhuaweicloud.com/image-20230421092454282.png)
 
 
 
@@ -79,5 +114,6 @@ linux下可以使用`man gcc`来查看帮助手册
 
 1. [GCC 概述：C 语言编译过程详解](https://iamazing.cn/page/GCC-%E6%A6%82%E8%BF%B0%EF%BC%9AC-%E8%AF%AD%E8%A8%80%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3)
 2. [一个简单的 make & makefile 教程](https://zhuanlan.zhihu.com/p/92010728)
+3. [Makefile由浅入深--教程、干货](https://zhuanlan.zhihu.com/p/47390641)
 3. 
 
