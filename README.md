@@ -119,9 +119,9 @@ SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
 
-SRCFILES = $(wildcard $(SRCDIR)/*.c)
-SRCFILES += ./main.c
-OBJFILES = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCFILES))
+SRCFILES += $(wildcard $(SRCDIR)/*.c)
+SRCFILES += $(wildcard ./*.c)
+OBJFILES += $(patsubst $(SRCDIR)/%.c+./%.c,$(OBJDIR)/%.o,$(SRCFILES))
 
 TARGET = $(BINDIR)/main
 
@@ -130,12 +130,13 @@ TARGET = $(BINDIR)/main
 all: $(TARGET)
 $(TARGET): $(OBJFILES)
 	$(CC) $(LDFLAGS) $(OBJFILES) -o $(TARGET)
-
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	echo $(OBJFILES)
 	$(CC) $(CFLAGS) -c $(SRCFILES) -o $(OBJFILES)
 
 clean:
 	rm -f $(OBJDIR)/*.o $(TARGET)
+
 
 ```
 
@@ -171,7 +172,7 @@ BINDIR = bin
 
 ```makefile
 makefileCopy codeSRCFILES = $(wildcard $(SRCDIR)/*.c)
-OBJFILES = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCFILES))
+OBJFILES += $(patsubst $(SRCDIR)/%.c+./%.c,$(OBJDIR)/%.o,$(SRCFILES))
 ```
 
 这两句话分别定义了源文件列表和目标文件列表的变量。`$(wildcard $(SRCDIR)/*.c)` 表示查找 `src` 目录下的所有 `.c` 文件并将其作为源文件列表，`$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCFILES))` 表示将源文件列表中的 `.c` 文件替换为对应的 `.o` 文件，并将结果作为目标文件列表。

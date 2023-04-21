@@ -6,9 +6,9 @@ SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
 
-SRCFILES = $(wildcard $(SRCDIR)/*.c)
-SRCFILES += ./main.c
-OBJFILES = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCFILES))
+SRCFILES += $(wildcard $(SRCDIR)/*.c)
+SRCFILES += $(wildcard ./*.c)
+OBJFILES += $(patsubst $(SRCDIR)/%.c+./%.c,$(OBJDIR)/%.o,$(SRCFILES))
 
 TARGET = $(BINDIR)/main
 
@@ -17,8 +17,8 @@ TARGET = $(BINDIR)/main
 all: $(TARGET)
 $(TARGET): $(OBJFILES)
 	$(CC) $(LDFLAGS) $(OBJFILES) -o $(TARGET)
-
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	echo $(OBJFILES)
 	$(CC) $(CFLAGS) -c $(SRCFILES) -o $(OBJFILES)
 
 clean:
