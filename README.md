@@ -1,4 +1,6 @@
-# Linux下C项目组织与编译食用指南
+# 浅谈Linux下C项目组织与编译
+
+~~因为makefile和cmake的知识点有点多，本人水平实在有限，在此仅能简单介绍一下makefile和cmkae，如有疏漏，欢迎一起讨论~~
 
 ## 0x00 本文环境及工具链版本
 
@@ -247,11 +249,55 @@ CMake 的主要特点如下：
 
 [demo](https://github.com/DailyNoBug/FanSpeedControl)
 
+demo的目录结构如下：
+
+![image-20230421132555870](https://tuchuang-e682.obs.cn-north-1.myhuaweicloud.com/image-20230421132555870.png)
+
+cmake代码如下：
+
+```cmake
+cmake_minimum_required(VERSION 3.15)
+project(FanSpeedControl)
+
+set(CMAKE_CXX_STANDARD 17)
+include_directories(inc)
+set(SOURCES src/cpuinfo.cpp main.cpp src/fan.cpp)
+add_executable(FanSpeedControl ${SOURCES})
+```
+
+从上到下每句的意思分别是：设置cmake最低构建版本，项目名称，设置c++语言版本，这里使用的是c++17，设置头文件所在目录，设置源文件。
+
+设置目标文件名称。
+
+这个文件的cmake比较简陋，使用时候，我们可以借助IDE，比如vscode或者clion可以直接检测cmake文件然后构建整个项目（~~非常强大~~）
+
+或者我们可以直接执行下面的命令：
+
+```shell
+mkdir build && cd build
+cmake ..
+make
+```
+
+得到结果如下图所示：
+
+![image-20230421133220778](https://tuchuang-e682.obs.cn-north-1.myhuaweicloud.com/image-20230421133220778.png)
+
+然后我们的可执行文件在build目录出现
+
+![image-20230421133316986](https://tuchuang-e682.obs.cn-north-1.myhuaweicloud.com/image-20230421133316986.png)
+
+以上仅是make和cmake的简单使用方法，~~具体的使用还要等王总来给我们细说~~
+
+
+
 ## 参考文档
 
 1. [GCC 概述：C 语言编译过程详解](https://iamazing.cn/page/GCC-%E6%A6%82%E8%BF%B0%EF%BC%9AC-%E8%AF%AD%E8%A8%80%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3)
 2. [一个简单的 make & makefile 教程](https://zhuanlan.zhihu.com/p/92010728)
 3. [Makefile由浅入深--教程、干货](https://zhuanlan.zhihu.com/p/47390641)
+3. [GNU make官方文档](https://www.gnu.org/software/make/manual/make.html)
+3. [CMake官方文档](https://cmake.org/documentation/)
 
 
 
